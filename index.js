@@ -9,6 +9,14 @@ app.listen(PORT,function () {
 app.get("/demo",function (req,res){
     res.send("Hello World!");
 });
+// share api access all
+app.use(function(req,res,next){
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Headers","Origin X-Reqested-With, Content-Type,Accept");
+    next();
+});
+
+
 // config to connect mysql
 const configDB = {
     host: "139.180.186.20",
