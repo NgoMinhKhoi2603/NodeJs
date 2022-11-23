@@ -130,3 +130,87 @@ app.delete("/student",function(req,res){
     //delete sinh vien
     res.send("Student with DELETE");
 });
+
+app.get("/get-centre",function (req,res) {
+    const sql = "select * from Group1_Centres";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-degree",function (req,res) {
+    const sql = "select * from Group1_Degrees";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-equipment",function (req,res) {
+    const sql = "select * from Group1_Equipments";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-doctor",function (req,res) {
+    const sql = "select * from Group1_Doctors";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-facility",function (req,res) {
+    const sql = "select * from Group1_Facilities";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-service",function (req,res) {
+    const sql = "select * from Group1_Services";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-doctordegree",function (req,res) {
+    const sql = "select * from Group1_DoctorDegrees";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
