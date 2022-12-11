@@ -31,88 +31,6 @@ const configDB = {
 const mysql = require("mysql");
 const conn = mysql.createConnection(configDB);
 
-// api list all class
-app.get("/get-classes",function (req,res) {
-    const sql = "select * from classes";
-    conn.query(sql,function (err,data){
-        if(err){
-            res.send("404 not found");
-        }else{
-            res.send(data);
-        }
-    })
-    //dung co ma send o day
-});
-
-app.get("/get-students",function (req,res) {
-    const sql = "select * from students";
-    conn.query(sql,function (err,data){
-        if(err){
-            res.send("404 not found");
-        }else{
-            res.send(data);
-        }
-    })
-    //dung co ma send o day
-});
-
-// loc theo cid
-
-app.get("/get-by-classes",function (req,res) {
-    const cid = req.query.cid;
-    const sql = "select * from students where cid = "+cid;
-    conn.query(sql,function (err,data){
-        if(err){
-            res.send("404 not found");
-        }else{
-            res.send(data);
-        }
-    })
-    //dung co ma send o day
-});
-
-app.get("/get-student-by-name",function (req,res) {
-    const name = req.query.name;
-    const sql = `select * from students where name like '%${name}%' or email like '%${name}%'`;
-    conn.query(sql,function (err,data){
-        if(err){
-            res.send("404 not found");
-        }else{
-            res.send(data);
-        }
-    })
-    //dung co ma send o day
-});
-
-app.get("/get-student-by-classname",function (req,res) {
-    const clname = req.query.clname;
-    const sql = `select * from students where cid in (select cid from classes where name like '%${clname}%')`;
-    conn.query(sql,function (err,data){
-        if(err){
-            res.send("404 not found");
-        }else{
-            res.send(data);
-        }
-    })
-    //dung co ma send o day
-});
-
-app.get("/get-join-table",function (req,res) {
-    const clname = req.query.clname;
-    const sql = `
-select students.name as sname,classes.name as clname from students 
-inner join classes on students.cid = classes.cid
-where classes.name like '%${clname}%';
-`;
-    conn.query(sql,function (err,data){
-        if(err){
-            res.send("404 not found");
-        }else{
-            res.send(data);
-        }
-    })
-    //dung co ma send o day
-});
 
 app.get("/student",function(req,res){
     //Liet ke sinh vien
@@ -168,7 +86,7 @@ app.get("/get-equipment",function (req,res) {
 });
 
 app.get("/get-doctor",function (req,res) {
-    const sql = "select * from Group1_Doctors";
+    const sql = "SELECT a.id,a.name,a.img,a.phone,a.email,a.description,b.id as idc,b.name as namec,c.name as namep FROM Group1_Doctors a left join Group1_Centres b on a.centreid = b.id left join Group1_Positions c on c.id = a.positionid;";
     conn.query(sql,function (err,data){
         if(err){
             res.send("404 not found");
@@ -205,6 +123,68 @@ app.get("/get-service",function (req,res) {
 
 app.get("/get-doctordegree",function (req,res) {
     const sql = "select * from Group1_DoctorDegrees";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+
+app.get("/get-centre-by-id",function (req,res) {
+    const id = req.query.id;
+    const sql = `select * from Group1_Centres where id = ${id}`;
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+app.get("/get-doctor-by-cid",function (req,res) {
+    const id = req.query.id;
+    const sql = `SELECT a.id,a.name,a.img,a.phone,a.email,a.description,b.id as idc,b.name as namec,c.name as namep FROM Group1_Doctors a left join Group1_Centres b on a.centreid = b.id left join Group1_Positions c on c.id = a.positionid where b.id = ${id};`;
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+app.get("/get-service-by-id",function (req,res) {
+    const id = req.query.id;
+    const sql = `select * from Group1_Services where id = ${id}`;
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-question",function (req,res) {
+    const sql = "select * from Group1_Questions";
+    conn.query(sql,function (err,data){
+        if(err){
+            res.send("404 not found");
+        }else{
+            res.send(data);
+        }
+    })
+    //dung co ma send o day
+});
+
+app.get("/get-doctor-dean",function (req,res) {
+    const sql = "SELECT a.id,a.name,a.img,a.phone,a.email,a.description,b.id as idc,b.name as namec,c.name as namep FROM Group1_Doctors a left join Group1_Centres b on a.centreid = b.id left join Group1_Positions c on c.id = a.positionid where c.id = 1;";
     conn.query(sql,function (err,data){
         if(err){
             res.send("404 not found");
